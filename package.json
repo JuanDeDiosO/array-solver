@@ -1,0 +1,27 @@
+{
+  "name": "array-solver",
+  "version": "0.0.1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch --trace-warnings ./src/app.js"
+  },
+  "keywords": [],
+  "author": "Juan D",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "fraction.js": "^4.3.7",
+    "inquirer": "^9.2.17"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "inquirer-table-input": "^0.0.3"
+  }
+}
