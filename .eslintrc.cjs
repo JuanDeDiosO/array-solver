@@ -2,17 +2,17 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
+    jest: true
   },
+  plugins: ['jest'],
   extends: 'standard',
   overrides: [
     {
       env: {
         node: true
       },
-      files: [
-        '.eslintrc.{js,cjs}'
-      ],
+      files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
         sourceType: 'script'
       }
@@ -22,6 +22,5 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  rules: {
-  }
+  rules: {}
 }

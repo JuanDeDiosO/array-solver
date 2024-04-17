@@ -1,7 +1,7 @@
 // @ts-check
 
 import Fraction from 'fraction.js'
-import { Flow } from './classes/Flow.js'
+import { Flow } from './flows/core/Flow.js'
 
 export class Main {
   static ABC = 'abcdefghijklmnopqrstuvwxyz'
@@ -210,7 +210,7 @@ export class Main {
   }
 
   /**
-   * Description
+   * this method will no longer be used in the future.
    * @param {{arrayToWork: object[], rowToWork: number, ops: {multiplier?: string} }} props
    * @returns {[resultTransformer: {} ]}
    */

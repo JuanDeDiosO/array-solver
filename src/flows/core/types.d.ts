@@ -16,15 +16,6 @@ interface BaseQuestionProps {
   default?: string // default option value
 }
 
-/**
- * Question Props
- */
-// enum QuestionTypes {
-//   input = 'input',
-//   list = 'list',
-//   text = 'text',
-//   number = 'number'
-// }
 
 type QuestionTypes = 'input'|'list'|'text'|'confirm'
 interface QuestionProps extends BaseQuestionProps {
