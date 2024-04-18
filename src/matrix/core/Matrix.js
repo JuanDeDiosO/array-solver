@@ -1,22 +1,21 @@
-export class Matrix {
-  Matrix
+// @ts-check
 
+export class Matrix {
   /**
    * Create a instance of matrix
    * @param {Array<[]>} matrix
-   * @returns {void}
    */
   constructor (matrix) {
-    this.Matrix = matrix
+    this.Matrix = [...matrix]
   }
 
   /**
    * This method use the multiplier that contains a number or a fraction to multiply the row corresponding to the index provider by the rowToMultiply
-   * @param {{rowToMultiply: number, multiplier: string}} params
-   * @returns {any}
+   * @param {{indexOfRowToMultiply: number, multiplier: number}} params
+   * @returns {Array<number>}
    */
-  multiplyRow ({ rowToMultiply, multiplier }) {
-    const arrayOfRowToMultiply = this.Matrix[rowToMultiply]
+  multiplyRow ({ indexOfRowToMultiply, multiplier }) {
+    const arrayOfRowToMultiply = this.Matrix[indexOfRowToMultiply]
 
     const newArrayOfRow = []
 
@@ -24,6 +23,26 @@ export class Matrix {
       const element = arrayOfRowToMultiply[i]
 
       newArrayOfRow.push(element * multiplier)
+    }
+
+    return newArrayOfRow
+  }
+
+  /**
+   * Description
+   * @param { {indexOfFirstRowToSum: number, secondRowToSum: Array<string>}} params
+   * @returns {Array<string>}
+   */
+  addRows ({ indexOfFirstRowToSum, secondRowToSum }) {
+    const arrayOfFirstRowToSum = this.Matrix[indexOfFirstRowToSum]
+
+    const newArrayOfRow = []
+
+    for (let i = 0; i < arrayOfFirstRowToSum.length; i++) {
+      const firstElement = arrayOfFirstRowToSum[i]
+      const secondElement = secondRowToSum[i]
+
+      newArrayOfRow.push(firstElement + secondElement)
     }
 
     return newArrayOfRow
@@ -38,10 +57,10 @@ export class Matrix {
   }
   /**
    * This method use a index of row to set and the mew Row
-   * @param {{rowToSet: number, newRow: []}} params
+   * @param {{indexOfRowToSet: number, newRow: []}} params
    * @returns {void}
    */
-  setRow ({ rowToSet, newRow }) {
-    this.Matrix[rowToSet] = newRow
+  setRow ({ indexOfRowToSet, newRow }) {
+    this.Matrix[indexOfRowToSet] = newRow
   }
 }
