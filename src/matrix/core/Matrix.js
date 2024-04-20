@@ -3,14 +3,46 @@
 export class Matrix {
   /**
    * Create a instance of matrix
-   * @param {Array<[]>} matrix
+   * @param {Array<number[]>} matrix
    */
   constructor (matrix) {
     this.Matrix = [...matrix]
   }
 
   /**
-   * This method use the multiplier that contains a number or a fraction to multiply the row corresponding to the index provider by the rowToMultiply
+   * Extends the matrix according to what is decided
+   * @param {{isIdentity: boolean, matrixToExtend?: Array<[]>}} options
+   * @return {[newMatrix: Array<number[]>, indexToStartExtendedColumns: number]}
+   */
+  extendMatrix ({ isIdentity = false, matrixToExtend = [] }) {
+    const rowsLength = this.Matrix.length
+
+    let indexToStartExtendedColumns = 0
+    /** @type {Array<number[]>} */
+    const newMatrix = []
+
+    if (isIdentity) {
+      this.Matrix.forEach((row, index) => {
+        /** @type {number[]} */
+        const newRow = [...row]
+
+        indexToStartExtendedColumns = indexToStartExtendedColumns || row.length
+
+        for (let i = 0; i < rowsLength; i++) {
+          const element = i === index ? 1 : 0
+          newRow.push(element)
+        }
+        newMatrix.push(newRow)
+      })
+    } else if (matrixToExtend.length >= 1) {
+      // TODO: make feature
+    }
+
+    return [newMatrix, indexToStartExtendedColumns]
+  }
+
+  /**
+   * Use the multiplier that contains a number or a fraction to multiply the row corresponding to the index provider by the rowToMultiply
    * @param {{indexOfRowToMultiply: number, multiplier: number}} params
    * @returns {Array<number>}
    */
@@ -27,9 +59,8 @@ export class Matrix {
 
     return newArrayOfRow
   }
-
   /**
-   * Description
+   * Add the index of row provider with the array provider
    * @param { {indexOfFirstRowToSum: number, secondRowToSum: Array<string>}} params
    * @returns {Array<string>}
    */
@@ -50,13 +81,13 @@ export class Matrix {
 
   /**
    * Return actual state of instance of Matrix
-   * @returns {Array<[]>}
+   * @returns {Array<number[]>}
    */
   getMatrix () {
     return this.Matrix
   }
   /**
-   * This method use a index of row to set and the mew Row
+   * Use a index of row to set the mew Row
    * @param {{indexOfRowToSet: number, newRow: []}} params
    * @returns {void}
    */
