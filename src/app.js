@@ -173,7 +173,6 @@ export class Main {
   }
 
   /**
-   * Description
    * @param {number} rows
    * @param {number} columns
    * @returns {[{ visualRows: [], visualDescRows: [] }, { visualColumns: object }]}

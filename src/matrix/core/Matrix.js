@@ -1,41 +1,62 @@
 // @ts-check
+import Fraction from 'fraction.js'
 
 export class Matrix {
   /**
    * Create a instance of matrix
-   * @param {Array<number[]>} matrix
+   * @param {Array<string[]>} matrix
    */
   constructor (matrix) {
-    this.Matrix = [...matrix]
+    this.Matrix = matrix.map((row, index) => {
+      const newRow = []
+      row.forEach(element => {
+        newRow.push(element.toString())
+      })
+      return newRow
+    })
   }
 
   /**
    * Extends the matrix according to what is decided
-   * @param {{isIdentity: boolean, matrixToExtend?: Array<[]>}} options
-   * @return {[newMatrix: Array<number[]>, indexToStartExtendedColumns: number]}
+   * @param {{isIdentity: boolean, matrixToExtend?: Array<string[]>}} options
+   * @return {[newMatrix: Array<string[]>, indexToStartExtendedColumns: number]}
    */
   extendMatrix ({ isIdentity = false, matrixToExtend = [] }) {
     const rowsLength = this.Matrix.length
 
     let indexToStartExtendedColumns = 0
-    /** @type {Array<number[]>} */
+    /** @type {Array<string[]>} */
     const newMatrix = []
 
     if (isIdentity) {
       this.Matrix.forEach((row, index) => {
-        /** @type {number[]} */
+        /** @type {string[]} */
         const newRow = [...row]
 
         indexToStartExtendedColumns = indexToStartExtendedColumns || row.length
 
         for (let i = 0; i < rowsLength; i++) {
-          const element = i === index ? 1 : 0
+          const element = i === index ? '1' : '0'
           newRow.push(element)
         }
         newMatrix.push(newRow)
       })
     } else if (matrixToExtend.length >= 1) {
-      // TODO: make feature
+      this.Matrix.forEach((row, index) => {
+        /** @type {string[]} */
+        const newRow = [...row]
+
+        indexToStartExtendedColumns = indexToStartExtendedColumns || row.length
+
+        for (let i = 0; i < rowsLength - 1; i++) {
+          const element = new Fraction(matrixToExtend[index][i])
+
+          const result = element.toFraction()
+
+          newRow.push(result)
+        }
+        newMatrix.push(newRow)
+      })
     }
 
     return [newMatrix, indexToStartExtendedColumns]
@@ -44,7 +65,7 @@ export class Matrix {
   /**
    * Use the multiplier that contains a number or a fraction to multiply the row corresponding to the index provider by the rowToMultiply
    * @param {{indexOfRowToMultiply: number, multiplier: number}} params
-   * @returns {Array<number>}
+   * @returns {Array<string>}
    */
   multiplyRow ({ indexOfRowToMultiply, multiplier }) {
     const arrayOfRowToMultiply = this.Matrix[indexOfRowToMultiply]
@@ -52,9 +73,12 @@ export class Matrix {
     const newArrayOfRow = []
 
     for (let i = 0; i < arrayOfRowToMultiply.length; i++) {
-      const element = arrayOfRowToMultiply[i]
+      const element = new Fraction(arrayOfRowToMultiply[i])
+      const frMultiplier = new Fraction(multiplier)
 
-      newArrayOfRow.push(element * multiplier)
+      const result = element.mul(frMultiplier)
+
+      newArrayOfRow.push(result.toFraction())
     }
 
     return newArrayOfRow
@@ -70,10 +94,11 @@ export class Matrix {
     const newArrayOfRow = []
 
     for (let i = 0; i < arrayOfFirstRowToSum.length; i++) {
-      const firstElement = arrayOfFirstRowToSum[i]
-      const secondElement = secondRowToSum[i]
+      const firstElement = new Fraction(arrayOfFirstRowToSum[i])
+      const secondElement = new Fraction(secondRowToSum[i])
 
-      newArrayOfRow.push(firstElement + secondElement)
+      const result = firstElement.add(secondElement)
+      newArrayOfRow.push(result.toFraction())
     }
 
     return newArrayOfRow
@@ -94,4 +119,6 @@ export class Matrix {
   setRow ({ indexOfRowToSet, newRow }) {
     this.Matrix[indexOfRowToSet] = newRow
   }
+
+  convertsToDisplayable () {}
 }
