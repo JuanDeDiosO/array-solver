@@ -1,6 +1,6 @@
 {
-  "name": "array-solver",
-  "version": "0.0.1",
+  "name": "matrix-solver",
+  "version": "0.0.9",
   "main": "index.js",
   "type": "module",
   "scripts": {
