@@ -2,6 +2,7 @@
 import Fraction from 'fraction.js'
 
 export class Matrix {
+  ABC = 'abcdefghijklmnopqrstuvwxyz'
   /**
    * Create a instance of matrix
    * @param {Array<string[]>} matrix
@@ -111,6 +112,15 @@ export class Matrix {
   getMatrix () {
     return this.Matrix
   }
+
+  /**
+   * Set Matrix with other matrix
+   * @param {{newMatrix: Array<string[]>}} param
+   * @returns {void}
+   */
+  setMatrix ({ newMatrix }) {
+    this.Matrix = [...newMatrix]
+  }
   /**
    * Use a index of row to set the mew Row
    * @param {{indexOfRowToSet: number, newRow: []}} params
@@ -120,5 +130,33 @@ export class Matrix {
     this.Matrix[indexOfRowToSet] = newRow
   }
 
-  convertsToDisplayable () {}
+  /**
+   * Return a matrix of objects that contains more info about matrix
+   * @param {{isExtendedMatrix?: boolean}} param
+   * @returns {Array<{nf: string, otherProperties}>}
+   */
+  convertsToDisplayable ({ isExtendedMatrix = false }) {
+    const newMatrix = []
+
+    /** @type {number} */
+    // @ts-ignore
+    const indexToNumberTSEColumns =
+      isExtendedMatrix || this.getMatrix()[0].length + 1
+
+    this.Matrix.forEach((row, index) => {
+      const newRow = { nf: this.ABC[index] }
+
+      for (let i = 0; i < row.length; i++) {
+        const element = row[i]
+
+        const isExtended = i > indexToNumberTSEColumns ? true : false
+        newRow[!isExtended ? `x${i + 1}` : `i${i - row.length + 3}`] = element
+      }
+
+      newMatrix.push(newRow)
+    })
+
+    console.log('newMatrix', newMatrix)
+    return newMatrix
+  }
 }

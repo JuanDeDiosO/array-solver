@@ -151,6 +151,7 @@ export class Main {
           }
         })[0]
 
+        console.log(array)
         console.table(await array)
       } else if (operation === '*') {
         const [multiplier] = await flow.question({
@@ -284,6 +285,7 @@ export class Main {
       matrizIdentidad.push(nuevaFila)
     })
 
+    console.log('ma', ma)
     return matrizIdentidad
   }
 }

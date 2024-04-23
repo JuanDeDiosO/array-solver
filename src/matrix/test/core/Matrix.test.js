@@ -95,6 +95,31 @@ describe('test in core of Matrix Class with natural numbers', () => {
 
     expect(newMatrix).toEqual(EXPECTED_MATRIX)
   })
+
+  test('should return object displayable', () => {
+    const EXPECTED_MATRIX = [
+      { nf: 'a', x1: '2', x2: '3' },
+      { nf: 'b', x1: '4', x2: '5' }
+    ]
+
+    const newMatrix = matrix.convertsToDisplayable({})
+
+    expect(newMatrix).toEqual(EXPECTED_MATRIX)
+  })
+  test('should return object displayable and their identity', () => {
+    const EXPECTED_MATRIX = [
+      { nf: 'a', x1: '2', x2: '3', i1: '1', i2: '0' },
+      { nf: 'b', x1: '4', x2: '5', i1: '0', i2: '1' }
+    ]
+
+    const [extendedMatrix] = matrix.extendMatrix({ isIdentity: true })
+    matrix.setMatrix({ newMatrix: extendedMatrix })
+    const newMatrix = matrix.convertsToDisplayable({
+      isExtendedMatrix: true
+    })
+
+    expect(newMatrix).toEqual(EXPECTED_MATRIX)
+  })
 })
 
 describe('test in core of Matrix Class with fractions', () => {
